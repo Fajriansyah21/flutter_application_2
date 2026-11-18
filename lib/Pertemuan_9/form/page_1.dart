@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/Pertemuan_9/counter/page_2.dart';
 
 class Page1 extends StatefulWidget {
   const new({super.key});

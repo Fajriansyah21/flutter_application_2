@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/Pertemuan_9/counter/hitung_provider.dart';
-import 'package:flutter_application_2/Pertemuan_9/form/page_1.dart';
 import 'package:provider/provider.dart';
 
 class Page2 extends StatelessWidget {

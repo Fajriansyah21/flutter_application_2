@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/Pertemuan_9/counter/page_2.dart';
 
 class Page1 extends StatefulWidget {
   const new({super.key});
@@ -9,6 +10,7 @@ class Page1 extends StatefulWidget {
 
 class _Page1State extends State<Page1> {
   final TextEditingController _namapengguna = TextEditingController();
+  final _kunci = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -24,6 +26,7 @@ class _Page1State extends State<Page1> {
         child: Padding(
           padding: const EdgeInsetsGeometry.all(10),
           child: Form(
+            key: _kunci,
             child: Column(
               children: [
                 TextFormField(
@@ -37,6 +40,14 @@ class _Page1State extends State<Page1> {
                   ),
                   onChanged: (value) {
                     setState(() {});
+                  },
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Nama Pengguna wajib di isi";
+                    } else if (value.length <= 6) {
+                      return "Nama Pengguna Minimal 6 Karakter";
+                    }
+                    return null;
                   },
                 ),
 
@@ -52,11 +63,26 @@ class _Page1State extends State<Page1> {
                   ),
                   obscureText: true,
                   keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return "Password wajib di isi";
+                    }
+                    return null;
+                  },
                 ),
-
                 SizedBox(height: 20),
 
                 Text(_namapengguna.text),
+
+                SizedBox(height: 20),
+
+                ElevatedButton(
+                  onPressed: () {
+                    if (!_kunci.currentState!.validate()) return;
+                    print(_namapengguna.text);
+                  },
+                  child: Text("Simpan"),
+                ),
               ],
             ),
           ),

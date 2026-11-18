@@ -26,8 +26,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       routes: {
-        '/': (context) => const MenuRestoPage(),
-        '/keranjang': (context) => const NotaPesananPage(),
+        '/menu': (context) => const MenuRestoPage(),
+        '/pesanan': (context) => const NotaPesananPage(),
       },
 
       initialRoute: '/',

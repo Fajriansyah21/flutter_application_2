@@ -50,4 +50,18 @@ class RestoProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  // method untuk mengosongkan semua pesanan
+  void kosongkanPesanan() {
+    _pesanan.clear();
+
+    notifyListeners();
+  }
+
+  // method untuk menghapus pesanan berdasarkan ID
+  void hapusItemPesanan(String id) {
+    _pesanan.removeWhere((item) => item['id'] == id);
+
+    notifyListeners();
+  }
 }

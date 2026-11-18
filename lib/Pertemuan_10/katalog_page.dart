@@ -23,7 +23,7 @@ class KatalogPage extends StatelessWidget {
               key: const Key('open_keranjang_button'),
               tooltip: 'Lihat Keranjang',
               onPressed: () {
-                Navigator.pushNamed(context, '/contoh-keranjang');
+                Navigator.pushNamed(context, '/keranjang');
               },
               icon: Badge(
                 isLabelVisible: keranjang.jumlahItem > 0,

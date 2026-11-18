@@ -13,4 +13,14 @@ class KeranjangProvider extends ChangeNotifier {
     _items.add(namaProduk);
     notifyListeners();
   }
+
+  void hapusItem(int noProduk) {
+    _items.removeAt(noProduk);
+    notifyListeners();
+  }
+
+  void kosongkan() {
+    _items.clear();
+    notifyListeners();
+  }
 }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application_2/PraktikumMandiri/resto_provider.dart';
 
 class NotaPesananPage extends StatelessWidget {
   const NotaPesananPage({super.key});
@@ -15,73 +17,79 @@ class NotaPesananPage extends StatelessWidget {
         title: const Text('Nota Pesanan'),
         actions: [TextButton(onPressed: () {}, child: const Text('Reset'))],
       ),
-      body: pesananDummy.isEmpty
-          ? const Center(
-              child: Text(
-                'Belum ada pesanan yang dipilih',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
-              ),
-            )
-          : Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(16),
-                    itemCount: pesananDummy.length,
-                    itemBuilder: (context, index) {
-                      final p = pesananDummy[index];
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: ListTile(
-                          title: Text('Menu ID: ${p['id']}'),
-                          subtitle: Text(
-                            'Jumlah: ${p['jumlah']} x Rp ${p['harga']} = Rp ${p['subtotal']}',
-                          ),
-                          trailing: IconButton(
-                            icon: const Icon(
-                              Icons.delete_outline,
-                              color: Colors.red,
+      body: Consumer<RestoProvider>(
+        builder: (context, nota, child) {
+          return nota.pesanan.isEmpty
+              ? const Center(
+                  child: Text(
+                    'Belum ada pesanan yang dipilih',
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                )
+              : Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: nota.pesanan.length,
+                        itemBuilder: (context, index) {
+                          final p = nota.pesanan[index];
+                          return Card(
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: ListTile(
+                              title: Text('Menu ID: ${p['id']}'),
+                              subtitle: Text(
+                                'Jumlah: ${p['jumlah']} x Rp ${p['harga']} = Rp ${p['subtotal']}',
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(
+                                  Icons.delete_outline,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () {},
+                              ),
                             ),
-                            onPressed: () {},
+                          );
+                        },
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest,
+                        border: Border(
+                          top: BorderSide(
+                            color: Theme.of(context).dividerColor,
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .surfaceContainerHighest,
-                    border: Border(
-                      top: BorderSide(color: Theme.of(context).dividerColor),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Total Bayar:',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Rp ${nota.totalBayar}',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Total Bayar:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        'Rp 65000',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                  ],
+                );
+        },
+      ),
     );
   }
 }

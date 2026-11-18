@@ -17,6 +17,17 @@ class RestoProvider extends ChangeNotifier {
     return total;
   }
 
+  // method untuk menghitung total pembayaran
+  int get totalBayar {
+    int total = 0;
+
+    for (var item in _pesanan) {
+      total += int.parse(item['subtotal']);
+    }
+
+    return total;
+  }
+
   // methode untuk menambah pesanan
   void tambahPesanan(Map<String, dynamic> item) {
     int index = _pesanan.indexWhere((pesanan) => pesanan['id'] == item['id']);

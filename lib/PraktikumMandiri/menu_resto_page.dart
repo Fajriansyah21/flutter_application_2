@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application_2/PraktikumMandiri/resto_provider.dart';
 
 class MenuRestoPage extends StatelessWidget {
   const MenuRestoPage({super.key});
@@ -9,35 +11,40 @@ class MenuRestoPage extends StatelessWidget {
       'nama': 'Nasi Goreng Spesial',
       'harga': '25000',
       'stok': '15',
-      'gambar': 'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300',
+      'gambar':
+          'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=300',
     },
     {
       'id': 'M02',
       'nama': 'Mie Ayam Jamur Bakso',
       'harga': '20000',
       'stok': '20',
-      'gambar': 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=300',
+      'gambar':
+          'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=300',
     },
     {
       'id': 'M03',
       'nama': 'Ayam Geprek Sambal Matah',
       'harga': '22000',
       'stok': '8',
-      'gambar': 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300',
+      'gambar':
+          'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=300',
     },
     {
       'id': 'M04',
       'nama': 'Es Kopi Susu Aren',
       'harga': '15000',
       'stok': '30',
-      'gambar': 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=300',
+      'gambar':
+          'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=300',
     },
     {
       'id': 'M05',
       'nama': 'Es Lemon Tea Segar',
       'harga': '8000',
       'stok': '40',
-      'gambar': 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300',
+      'gambar':
+          'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300',
     },
   ];
 
@@ -51,10 +58,12 @@ class MenuRestoPage extends StatelessWidget {
             onPressed: () {
               Navigator.pushNamed(context, '/pesanan-resto');
             },
-            icon: const Badge(
-              isLabelVisible: false,
-              label: Text('0'),
-              child: Icon(Icons.receipt_long_outlined),
+            icon: Consumer<RestoProvider>(
+              builder: (context, nota, child) => Badge(
+                isLabelVisible: nota.totalItemPesanan > 0,
+                label: Text('${nota.totalItemPesanan}'),
+                child: const Icon(Icons.receipt_long_outlined),
+              ),
             ),
           ),
         ],
@@ -75,7 +84,8 @@ class MenuRestoPage extends StatelessWidget {
                   width: 56,
                   height: 56,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => const Icon(Icons.fastfood, size: 36),
+                  errorBuilder: (_, __, ___) =>
+                      const Icon(Icons.fastfood, size: 36),
                 ),
               ),
               title: Text(
@@ -85,6 +95,8 @@ class MenuRestoPage extends StatelessWidget {
               subtitle: Text('Rp $harga | Stok: ${item['stok']}'),
               trailing: ElevatedButton(
                 onPressed: () {
+                  context.read<RestoProvider>().tambahPesanan(item);
+
                   ScaffoldMessenger.of(context).hideCurrentSnackBar();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

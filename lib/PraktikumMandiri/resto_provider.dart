@@ -16,4 +16,27 @@ class RestoProvider extends ChangeNotifier {
 
     return total;
   }
+
+  // methode untuk menambah pesanan
+  void tambahPesanan(Map<String, dynamic> item) {
+    int index = _pesanan.indexWhere((pesanan) => pesanan['id'] == item['id']);
+
+    if (index != -1) {
+      int jumlah = int.parse(_pesanan[index]['jumlah']);
+      jumlah++;
+
+      _pesanan[index]['jumlah'] = jumlah.toString();
+      _pesanan[index]['subtotal'] =
+          (jumlah * int.parse(_pesanan[index]['harga'])).toString();
+    } else {
+      _pesanan.add({
+        'id': item['id'],
+        'jumlah': '1',
+        'harga': item['harga'],
+        'subtotal': item['harga'],
+      });
+    }
+
+    notifyListeners();
+  }
 }

@@ -4,18 +4,8 @@ class NotaPesananPage extends StatelessWidget {
   const NotaPesananPage({super.key});
 
   static const List<Map<String, dynamic>> pesananDummy = [
-    {
-      'id': 'M01',
-      'jumlah': '2',
-      'harga': '25000',
-      'subtotal': '50000',
-    },
-    {
-      'id': 'M04',
-      'jumlah': '1',
-      'harga': '15000',
-      'subtotal': '15000',
-    },
+    {'id': 'M01', 'jumlah': '2', 'harga': '25000', 'subtotal': '50000'},
+    {'id': 'M04', 'jumlah': '1', 'harga': '15000', 'subtotal': '15000'},
   ];
 
   @override
@@ -23,12 +13,7 @@ class NotaPesananPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nota Pesanan'),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: const Text('Reset'),
-          ),
-        ],
+        actions: [TextButton(onPressed: () {}, child: const Text('Reset'))],
       ),
       body: pesananDummy.isEmpty
           ? const Center(
@@ -53,7 +38,10 @@ class NotaPesananPage extends StatelessWidget {
                             'Jumlah: ${p['jumlah']} x Rp ${p['harga']} = Rp ${p['subtotal']}',
                           ),
                           trailing: IconButton(
-                            icon: const Icon(Icons.delete_outline, color: Colors.red),
+                            icon: const Icon(
+                              Icons.delete_outline,
+                              color: Colors.red,
+                            ),
                             onPressed: () {},
                           ),
                         ),
@@ -64,7 +52,9 @@ class NotaPesananPage extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surfaceContainerHighest,
                     border: Border(
                       top: BorderSide(color: Theme.of(context).dividerColor),
                     ),
@@ -74,7 +64,10 @@ class NotaPesananPage extends StatelessWidget {
                     children: [
                       Text(
                         'Total Bayar:',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       Text(
                         'Rp 65000',

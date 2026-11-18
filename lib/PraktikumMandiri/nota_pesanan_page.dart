@@ -5,11 +5,6 @@ import 'package:flutter_application_2/PraktikumMandiri/resto_provider.dart';
 class NotaPesananPage extends StatelessWidget {
   const NotaPesananPage({super.key});
 
-  static const List<Map<String, dynamic>> pesananDummy = [
-    {'id': 'M01', 'jumlah': '2', 'harga': '25000', 'subtotal': '50000'},
-    {'id': 'M04', 'jumlah': '1', 'harga': '15000', 'subtotal': '15000'},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

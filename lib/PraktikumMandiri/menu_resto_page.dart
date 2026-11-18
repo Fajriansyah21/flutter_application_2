@@ -68,46 +68,57 @@ class MenuRestoPage extends StatelessWidget {
           ),
         ],
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: menuItems.length,
-        itemBuilder: (context, index) {
-          final item = menuItems[index];
-          final harga = int.tryParse(item['harga']?.toString() ?? '0') ?? 0;
-          return Card(
-            margin: const EdgeInsets.only(bottom: 12),
-            child: ListTile(
-              leading: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  item['gambar'] ?? '',
-                  width: 56,
-                  height: 56,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) =>
-                      const Icon(Icons.fastfood, size: 36),
-                ),
-              ),
-              title: Text(
-                item['nama'] ?? '',
-                style: const TextStyle(fontWeight: FontWeight.w600),
-              ),
-              subtitle: Text('Rp $harga | Stok: ${item['stok']}'),
-              trailing: ElevatedButton(
-                onPressed: () {
-                  context.read<RestoProvider>().tambahPesanan(item);
 
-                  ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('${item['nama']} ditambahkan ke pesanan'),
-                      duration: const Duration(seconds: 1),
+      body: Consumer<RestoProvider>(
+        builder: (context, resto, child) {
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: resto.menu.length,
+            itemBuilder: (context, index) {
+              final item = resto.menu[index];
+              final stok = int.tryParse(item['stok']?.toString() ?? '0') ?? 0;
+              final harga = int.tryParse(item['harga']?.toString() ?? '0') ?? 0;
+
+              return Card(
+                margin: const EdgeInsets.only(bottom: 12),
+                child: ListTile(
+                  leading: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      item['gambar'] ?? '',
+                      width: 56,
+                      height: 56,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) =>
+                          const Icon(Icons.fastfood, size: 36),
                     ),
-                  );
-                },
-                child: const Text('Pesan'),
-              ),
-            ),
+                  ),
+                  title: Text(
+                    item['nama'] ?? '',
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  subtitle: Text('Rp $harga | Stok: ${item['stok']}'),
+                  trailing: ElevatedButton(
+                    onPressed: stok > 0
+                        ? () {
+                            context.read<RestoProvider>().tambahPesanan(item);
+
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  '${item['nama']} ditambahkan ke pesanan',
+                                ),
+                                duration: const Duration(seconds: 1),
+                              ),
+                            );
+                          }
+                        : null,
+                    child: Text(stok > 0 ? 'Pesan' : 'Stok Habis'),
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

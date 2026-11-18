@@ -15,9 +15,14 @@ class NotaPesananPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Nota Pesanan'),
-        actions: [TextButton(onPressed: () {
-          context.read<RestoProvider>().kosongkanPesanan();
-        }, child: const Text('Reset'))],
+        actions: [
+          TextButton(
+            onPressed: () {
+              context.read<RestoProvider>().kosongkanPesanan();
+            },
+            child: const Text('Reset'),
+          ),
+        ],
       ),
       body: Consumer<RestoProvider>(
         builder: (context, nota, child) {
@@ -49,7 +54,9 @@ class NotaPesananPage extends StatelessWidget {
                                   color: Colors.red,
                                 ),
                                 onPressed: () {
-                                  context.read<RestoProvider>().hapusItemPesanan(p['id']);     
+                                  context
+                                      .read<RestoProvider>()
+                                      .hapusItemPesanan(p['id']);
                                 },
                               ),
                             ),

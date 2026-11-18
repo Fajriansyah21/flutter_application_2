@@ -26,11 +26,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
 
       routes: {
-        '/menu': (context) => const MenuRestoPage(),
-        '/pesanan': (context) => const NotaPesananPage(),
+        '/menu-resto': (context) => const MenuRestoPage(),
+        '/pesanan-resto': (context) => const NotaPesananPage(),
       },
 
-      initialRoute: '/',
+      initialRoute: '/menu-resto',
     );
   }
 }

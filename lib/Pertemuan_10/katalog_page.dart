@@ -25,10 +25,10 @@ class KatalogPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/contoh-keranjang');
               },
-              icon: const Badge(
-                isLabelVisible: true,
-                label: Text('0'),
-                child: Icon(Icons.shopping_cart_outlined),
+              icon: Badge(
+                isLabelVisible: keranjang.jumlahItem > 0,
+                label: Text('${keranjang.jumlahItem}'),
+                child: const Icon(Icons.shopping_cart_outlined),
               ),
             ),
           ),
